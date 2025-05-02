@@ -68,6 +68,29 @@ end component;
 	
 
 begin
+
+	  if_id_reg : IF_ID_Buffer
+        port map (
+
+		
+    clk         : clk,
+    rst         : rst,
+    instr_in    : ,
+    pc_in       : ,
+    instr_out   : ,
+    pc_out      : 
+
+            clk        => clk,
+            rst        => rst,
+            if_id_in   => if_id_in,
+            if_id_out  => if_id_out,
+            id_ex_in   => id_ex_in,
+            id_ex_out  => id_ex_out,
+            ex_mem_in  => ex_mem_in,
+            ex_mem_out => ex_mem_out,
+            mem_wb_in  => mem_wb_in,
+            mem_wb_out => mem_wb_out
+        );
     process(clk)
     begin
         if rising_edge(clk) then
