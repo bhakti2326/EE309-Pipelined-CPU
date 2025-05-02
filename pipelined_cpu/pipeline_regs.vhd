@@ -19,6 +19,21 @@ entity pipeline_registers is
 end entity pipeline_registers;
 
 architecture rtl of pipeline_registers is
+
+component IF_ID_Buffer is
+  port (
+    clk         : in  std_logic;
+    rst         : in  std_logic;
+    instr_in    : in  std_logic_vector(15 downto 0);
+    pc_in       : in  std_logic_vector(15 downto 0);
+    instr_out   : out std_logic_vector(15 downto 0);
+    pc_out      : out std_logic_vector(15 downto 0)
+  );
+end IF_ID_Buffer;
+
+
+
+	
 begin
     process(clk)
     begin
