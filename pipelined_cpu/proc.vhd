@@ -44,7 +44,7 @@ entity proc is
     );
 end entity proc;
 
-architecture rtl of proc is
+architecture beh of proc is
     component ring_buffer is
         generic (
             RAM_WIDTH : integer := 16;
@@ -322,4 +322,4 @@ begin
     wb_stage_rd_addr     <= mem_wb_out.rd_addr;
     wb_stage_rd_wr_en    <= mem_wb_out.rd_wr_en;
 
-end architecture rtl;
+end architecture beh;
