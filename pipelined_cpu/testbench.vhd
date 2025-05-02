@@ -201,35 +201,35 @@ begin
         wr_en_IMEM <= '1';
         
         -- Instruction 1: ADDI R1, R0, 10 (Add immediate value 10 to R0 and store in R1)
-        wr_data_IMEM <= create_instruction(OPCODE_ADDI, "001", "000", "000", "001010");
+        wr_data_IMEM <= create_instruction("0101", "001", "000", "000", "001010");
         wait for 4 ns;
         
         -- Instruction 2: ADDI R2, R0, 5 (Add immediate value 5 to R0 and store in R2)
-        wr_data_IMEM <= create_instruction(OPCODE_ADDI, "010", "000", "000", "000101");
+        wr_data_IMEM <= create_instruction("0101", "010", "000", "000", "000101");
         wait for 4 ns;
         
         -- Instruction 3: ADDI R3, R0, 20 (Add immediate value 20 to R0 and store in R3)
-        wr_data_IMEM <= create_instruction(OPCODE_ADDI, "011", "000", "000", "010100");
+        wr_data_IMEM <= create_instruction("0101", "011", "000", "000", "010100");
         wait for 12 ns;
         
-        wr_data_IMEM <= create_instruction(OPCODE_SW, "001", "001", "010");
+        wr_data_IMEM <= create_instruction("0001", "001", "001", "010");
         wait for 4 ns;
         
-        wr_data_IMEM <= create_instruction(OPCODE_SW, "010", "000", "011");
+        wr_data_IMEM <= create_instruction("0001", "010", "000", "011");
         wait for 12 ns;
         
-        wr_data_IMEM <= create_instruction(OPCODE_LW, "100", "001", "000");
+        wr_data_IMEM <= create_instruction("0000", "100", "001", "000");
         wait for 8 ns;
         
         -- Instruction 7: LW R7, R0 (Load from memory at address in R0 to R7)
-        wr_data_IMEM <= create_instruction(OPCODE_LW, "101", "000", "000");
+        wr_data_IMEM <= create_instruction("0000", "101", "000", "000");
         wait for 12 ns;
         
         -- Instruction 8: ADD R6, R5, R7 (Add contents of R5 and R7, store in R6)
-        wr_data_IMEM <= create_instruction(OPCODE_ADD, "110", "101", "011");
+        wr_data_IMEM <= create_instruction("0010", "110", "101", "011");
         wait for 4 ns;
 		  
-		  wr_data_IMEM <= create_instruction(OPCODE_SLL, "101", "101", "010");
+		  wr_data_IMEM <= create_instruction("0110", "101", "101", "010");
 		  wait for 4 ns;
         
         -- Stop writing to IMEM
