@@ -29,7 +29,7 @@ component IF_ID_Buffer is
     instr_out   : out std_logic_vector(15 downto 0);
     pc_out      : out std_logic_vector(15 downto 0)
   );
-end IF_ID_Buffer;
+end component;
 
 
 component ID_EX_Buffer is
@@ -48,7 +48,7 @@ component ID_EX_Buffer is
     alu_op_out      : out std_logic_vector(2 downto 0);
     dest_reg_out    : out std_logic_vector(2 downto 0)
   );
-end ID_EX_Buffer;
+end component;
 
 
 
@@ -64,7 +64,7 @@ entity EX_MEM_Buffer is
     reg_data2_out   : out std_logic_vector(15 downto 0);
     dest_reg_out    : out std_logic_vector(2 downto 0)
   );
-end EX_MEM_Buffer;
+end component;
 	
 
 begin
