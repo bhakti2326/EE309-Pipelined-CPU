@@ -142,7 +142,7 @@ architecture rtl of proc is
 begin
     -- Mux for rs2_addr: Select rd_addr (11-9) for SW, else rs2_addr (5-3)
     rs2_addr_mux <= 
-        if_id_out.instruction(11 downto 9) when (if_id_out.instruction(15 downto 12) = OPCODE_SW) else 
+        if_id_out.instruction(11 downto 9) when (if_id_out.instruction(15 downto 12) = "0001") else 
         if_id_out.instruction(5 downto 3); -- Fixed missing parenthesis
 
     -- Instruction Memory
@@ -161,10 +161,10 @@ begin
         );
 
     -- DMEM Write Enable for SW instruction (Store Word) ONLY
-    wr_en_DMEM <= '1' when ex_mem_out.opcode = OPCODE_SW else '0';
+    wr_en_DMEM <= '1' when ex_mem_out.opcode = "0001" else '0';
     
     -- Memory read control - active during MEM stage for LW instruction ONLY
-    mem_read <= '1' when ex_mem_out.opcode = OPCODE_LW else '0';
+    mem_read <= '1' when ex_mem_out.opcode = "0000" else '0';
     
     -- Data Memory - Ring Buffer
     DMEM: ring_buffer
@@ -233,7 +233,7 @@ begin
 
     -- ALU Operand Selection
     alu_operand1 <= id_ex_out.rs1_data;
-    alu_operand2 <= id_ex_out.immediate when id_ex_out.opcode = OPCODE_ADDI else
+    alu_operand2 <= id_ex_out.immediate when id_ex_out.opcode = "0101" else
                     id_ex_out.rs2_data;
 
     -- Jump Control
@@ -241,7 +241,7 @@ begin
         unsigned(id_ex_out.rs1_data) + 
         unsigned(id_ex_out.immediate(8 downto 0) & '0')
     );
-    should_jump <= '1' when id_ex_out.opcode = OPCODE_JRI else '0';
+    should_jump <= '1' when id_ex_out.opcode = "0111" else '0';
 
     -- PC Update Logic
     pc_proc: process(clk)
@@ -275,9 +275,9 @@ begin
 
         -- Immediate generation
         case if_id_out.instruction(15 downto 12) is
-            when OPCODE_JRI =>
+            when "0111" =>
                 id_ex_in.immediate <= std_logic_vector(resize(signed(if_id_out.instruction(8 downto 0)), 16));
-            when OPCODE_ADDI =>
+            when "0101" =>
                 id_ex_in.immediate <= std_logic_vector(resize(signed(if_id_out.instruction(5 downto 0)), 16));
             when others =>
                 id_ex_in.immediate <= (others => '0');
@@ -285,7 +285,7 @@ begin
 
         -- RegWrite control
         case if_id_out.instruction(15 downto 12) is
-            when OPCODE_LW | OPCODE_ADD | OPCODE_ADDI | OPCODE_SUB | OPCODE_MUL | OPCODE_SLL =>
+            when "0000" | "0010" | "0101" | "0011" | "0100" | "0110" =>
                 id_ex_in.reg_write <= '1';
             when others =>
                 id_ex_in.reg_write <= '0';
@@ -302,7 +302,7 @@ begin
     ex_mem_in.mem_data   <= id_ex_out.rs2_data;
 
     -- MEM/WB Stage
-    mem_wb_in.result_data <= dmem_rd_data when ex_mem_out.opcode = OPCODE_LW else
+    mem_wb_in.result_data <= dmem_rd_data when ex_mem_out.opcode = "0000" else
                              ex_mem_out.alu_result;
     mem_wb_in.rd_addr     <= ex_mem_out.rd_addr;
     mem_wb_in.rd_wr_en    <= ex_mem_out.reg_write;
