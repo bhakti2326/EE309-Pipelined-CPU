@@ -52,6 +52,20 @@ end ID_EX_Buffer;
 
 
 
+entity EX_MEM_Buffer is
+  port (
+    clk             : in  std_logic;
+    rst             : in  std_logic;
+    alu_result_in   : in  std_logic_vector(15 downto 0);
+    reg_data2_in    : in  std_logic_vector(15 downto 0);
+    dest_reg_in     : in  std_logic_vector(2 downto 0);
+
+    alu_result_out  : out std_logic_vector(15 downto 0);
+    reg_data2_out   : out std_logic_vector(15 downto 0);
+    dest_reg_out    : out std_logic_vector(2 downto 0)
+  );
+end EX_MEM_Buffer;
+	
 
 begin
     process(clk)
