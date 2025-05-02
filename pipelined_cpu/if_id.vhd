@@ -13,7 +13,7 @@ entity IF_ID_Buffer is
   );
 end IF_ID_Buffer;
 
-architecture rtl of IF_ID_Buffer is
+architecture beh of IF_ID_Buffer is
 begin
   process(clk)
   begin
@@ -27,4 +27,4 @@ begin
       end if;
     end if;
   end process;
-end rtl;
+end beh;
