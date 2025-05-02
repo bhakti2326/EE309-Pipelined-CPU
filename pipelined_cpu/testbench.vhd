@@ -1,7 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
-USE work.constants_and_types.all;
+
 
 entity testbench is 
 end testbench;
